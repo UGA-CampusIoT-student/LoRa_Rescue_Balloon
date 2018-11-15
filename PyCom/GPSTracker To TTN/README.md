@@ -1,7 +1,7 @@
 #GPS tracker with LoRa connection test
 
-"""
-derived from: 
+"""  
+derived from:   
 https://docs.pycom.io/tutorials/pytrack,   
 https://docs.pycom.io/tutorials/lora/lorawan-otaa  
 https://core-electronics.com.au/tutorials/pycom-pytrack-getting-started.html  
