@@ -27,7 +27,7 @@ c88fd9b
 ```
 
 ## TODOLIST
-[ ] add GPS position of the gateway when the LoPy is on a PyTrack board (see https://github.com/brocaar/pycom-examples/tree/master/pytrack-example)
+- [ ] add GPS position of the gateway when the LoPy is on a PyTrack board (see https://github.com/brocaar/pycom-examples/tree/master/pytrack-example)
 
 ## Licence
 Pycom Licence v2.2 
