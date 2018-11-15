@@ -6,4 +6,4 @@ Constellation de ballons sonde connectés utilisant la technologie LoRa pour gé
 https://docs.pycom.io/
 
 # Tasks
-[x] [LoRa unabled GPS tracker] (https://github.com/UGA-CampusIoT-student/LoRa_Rescue_Balloon/tree/master/PyCom/GPSTracker%20To%20TTN)
+- [x] [LoRa unabled GPS tracker] (PyCom/GPSTracker To TTN/)
