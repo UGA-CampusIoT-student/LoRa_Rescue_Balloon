@@ -5,7 +5,7 @@ Constellation de ballons sonde connectés utilisant la technologie LoRa pour gé
 - µControleur
     - Nucleo
     - IMST
-- Modification de la fonction pour utiliser le complément a deux [encodeCoordinate](https://github.com/UGA-CampusIoT-student/LoRa_Rescue_Balloon/blob/master/PyCom/GPSTracker%20To%20TTN/main.py)
+- Modification de la fonction [encodeCoordinate](https://github.com/UGA-CampusIoT-student/LoRa_Rescue_Balloon/blob/master/PyCom/GPSTracker%20To%20TTN/main.py) pour utiliser le complément a deux 
 - Etude sur les ballons sondes
 
 
