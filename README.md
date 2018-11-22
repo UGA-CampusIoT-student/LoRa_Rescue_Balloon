@@ -3,7 +3,7 @@ Constellation de ballons sonde connectés utilisant la technologie LoRa pour gé
 
 ## Taches
 
-- Compétition - @errikosmes
+- [_] Compétition - @errikosmes
 - NanoGateway - @errikosmes
 - µControleur  
     - Nucleo
