@@ -12,7 +12,7 @@ Constellation de ballons sonde connectés utilisant la technologie LoRa pour gé
 - Etude sur les ballons sondes @UgoManquat
 
 - Pycom 
-    - Connecter le PyCom au resau du campus
+    - Connecter le PyCom au resau du campus - @errikosmes
 - Wiki
 - KiCad
 
