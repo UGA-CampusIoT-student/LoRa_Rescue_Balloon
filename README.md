@@ -3,7 +3,6 @@ Constellation de ballons sonde connectés utilisant la technologie LoRa pour gé
 
 ## Taches
 
-- [ ] Apprendre github @T-Xiaohan @Z-Shuo
 - [ ] Compétition - @errikosmes
 - [ ] NanoGateway - @errikosmes
 - µControleur  
