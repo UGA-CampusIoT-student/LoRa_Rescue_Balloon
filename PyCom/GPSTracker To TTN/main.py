@@ -75,12 +75,8 @@ def encodeCoordinate(number):
     array[0] = hex ((number & hex_0) >> 4 * 4)
     array[1] = hex ((number & hex_1) >> 4 * 2)
     array[2] = hex  (number& hex_2)
-    
-    
-    return array
-    
-
-
+  
+    return bytes(array) # returning the coordinate in byte format, necessary for LoRa transmition 
 
 # Initialise LoRa in LORAWAN mode.
 # Please pick the region that matches where you are using the device:
