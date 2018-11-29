@@ -68,16 +68,18 @@ def encodeCoordinate(number):
     
     array = [None]*3 # Creating an array to store the bytes 
     
-    if number < 0 : # The if statement treats the case when the coordinate is negative 
-        number = -number
-        array[0] = (number>>16) & 0xff | 0b10000000 # we fill the first byte of the encoded message and the 24th bit is turned to 1 to signify a negative number 
-    else :
-        array[0] = (number>>16) & 0xff # filling byte 0
+    hex_0 = 0xff0000
+    hex_1 = 0x00ff00
+    hex_2 = 0x0000ff
+    
+    array[0] = hex ((number & hex_0) >> 4 * 4)
+    array[1] = hex ((number & hex_1) >> 4 * 2)
+    array[2] = hex  (number& hex_2)
+    
+    
+    return array
+    
 
-    array[1] = (number>>8) & 0xff # filling byte 1
-    array[2] = number & 0xff # filling byte 2
-
-    return bytes(array) # returning the coordinate in byte format, necessary for LoRa transmition 
 
 
 # Initialise LoRa in LORAWAN mode.
