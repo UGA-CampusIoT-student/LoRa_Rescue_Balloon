@@ -72,9 +72,9 @@ def encodeCoordinate(number):
     hex_1 = 0x00ff00
     hex_2 = 0x0000ff
     
-    array[0] = hex ((number & hex_0) >> 4 * 4)
-    array[1] = hex ((number & hex_1) >> 4 * 2)
-    array[2] = hex  (number& hex_2)
+    array[0] = int ((number & hex_0) >> 4 * 4)
+    array[1] = int ((number & hex_1) >> 4 * 2)
+    array[2] = int (number& hex_2)
   
     return bytes(array) # returning the coordinate in byte format, necessary for LoRa transmition 
 
@@ -115,7 +115,7 @@ longitude = coord[1]
 
 
 while (longitude == None or latitude == None):
-    print("No signal")
+    print("No GPS signal")
     coord = l76.coordinates()
     latitude = coord[0]
     longitude = coord[1]
