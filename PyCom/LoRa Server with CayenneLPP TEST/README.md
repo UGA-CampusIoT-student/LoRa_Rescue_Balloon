@@ -11,8 +11,7 @@ https://github.com/brocaar/pycom-examples
 The correct project structure is as follows. pycoproc.py needs to be placed in the main directory and not in lib one    
 
 
-GPSTracker to TTN
-
+GPSTracker to TTN   
 | -lib  
 |   |-L76GNSS.py  
 |   |-pytrack.py  
