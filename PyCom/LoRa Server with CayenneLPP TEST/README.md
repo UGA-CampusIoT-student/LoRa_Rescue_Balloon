@@ -13,7 +13,7 @@ The correct project structure is as follows. pycoproc.py needs to be placed in t
 
 GPSTracker to TTN
 | -lib  
-|\t|-L76GNSS.py  
+||-L76GNSS.py  
 |   |-pytrack.py  
 |   |-CayenneLPP.py    
 | -main.py  
