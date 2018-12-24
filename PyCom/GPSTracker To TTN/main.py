@@ -84,20 +84,22 @@ def encodeCoordinate(number):
 # Australia = LoRa.AU915
 # Europe = LoRa.EU868
 # United States = LoRa.US915
-lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868)
+lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868, frequency=868100000) #forced frequency to 868.1 
 
 # create an OTAA authentication parameters
 app_eui = ubinascii.unhexlify('70B3D57ED0013933')
-app_key = ubinascii.unhexlify('390F9BD6C9D3D2A7D8B505C1992F1B20')
+app_key = ubinascii.unhexlify('5BBC57394313FC28C1056E73D974D87E')
 
 # join a network using OTAA (Over the Air Activation)
 lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
+
 
 # wait until the module has joined the network
 while not lora.has_joined():
     time.sleep(2.5)
     print('Not yet joined...')
 pycom.rgbled(0xff8100)
+print("CONNECTED")
 
 # create a LoRa socket
 s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
@@ -108,10 +110,16 @@ s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
 # make the socket blocking
 # (waits for the data to be sent and for the 2 receive windows to expire)
 s.setblocking(True)
+#lora.frequency(868100000)
 
 coord = l76.coordinates()
 latitude = coord[0]
 longitude = coord[1]
+
+s.send(bytes([0x01, 0x02, 0x03]))
+s.send(bytes([0x01, 0x02, 0x03]))
+s.send(bytes([0x01, 0x02, 0x03]))
+print("Sent bytes")
 
 
 while (longitude == None or latitude == None):
@@ -121,6 +129,7 @@ while (longitude == None or latitude == None):
     longitude = coord[1]
 
 # send some data
+
 s.send(encodeCoordinate(latitude))
 s.send(encodeCoordinate(longitude))
 print("Coordinates sent!")

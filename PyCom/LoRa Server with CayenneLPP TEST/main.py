@@ -51,6 +51,7 @@ s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 # set the LoRaWAN data rate
 s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
 
+"""
 while True:
     # make the socket blocking
     # (waits for the data to be sent and for the 2 receive windows to expire)
@@ -59,10 +60,21 @@ while True:
     lpp = CayenneLPP()
     
     lpp.add_temperature(1, 23.54)
-    s.send(bytes(lpp.get_buffer()))
+    s.send(lpp.get_buffer())
     s.setblocking(False)
     print("TEMP SENT!")
 
     time.sleep(30)
+"""
+
+# make the socket blocking
+# (waits for the data to be sent and for the 2 receive windows to expire)
+while True:    
+    s.setblocking(True)
+    s.send(bytes([0x01, 0x02, 0x03]))  
+    s.setblocking(False)
+    print("SENT!")
+    time.sleep(10)
+
 
 

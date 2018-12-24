@@ -208,6 +208,7 @@ class NanoGateway:
         while not self.wlan.isconnected():
             utime.sleep_ms(50)
         self._log('WiFi connected to: {}', self.ssid)
+        self._log('IP: {}', self.wlan.ifconfig())
 
     def _dr_to_sf(self, dr):
         sf = dr[2:4]
