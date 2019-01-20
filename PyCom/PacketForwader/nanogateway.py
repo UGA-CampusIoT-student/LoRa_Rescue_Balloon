@@ -82,6 +82,8 @@ class NanoGateway:
     """
 
     def __init__(self, id, frequency, datarate, ssid, password, server, port, ntp_server='pool.ntp.org', ntp_period=3600):
+        self._log("Lets see...")
+        
         self.id = id
         self.server = server
         self.port = port
@@ -122,32 +124,41 @@ class NanoGateway:
 
     def start(self):
         """
-        Starts the LoRaWAN nano gateway.
+        Starts the REPEATER.
         """
 
         self._log('Starting LoRaWAN nano gateway with id: {}', self.id)
 
+        """
         # setup WiFi as a station and connect
         self.wlan = WLAN(mode=WLAN.STA)
         self._connect_to_wifi()
+        """
 
+        """
         # get a time sync
         self._log('Syncing time with {} ...', self.ntp_server)
         self.rtc.ntp_sync(self.ntp_server, update_period=self.ntp_period)
         while not self.rtc.synced():
             utime.sleep_ms(50)
         self._log("RTC NTP sync complete")
+        """
 
+        """
         # get the server IP and create an UDP socket
         self.server_ip = usocket.getaddrinfo(self.server, self.port)[0][-1]
         self._log('Opening UDP socket to {} ({}) port {}...', self.server, self.server_ip[0], self.server_ip[1])
         self.sock = usocket.socket(usocket.AF_INET, usocket.SOCK_DGRAM, usocket.IPPROTO_UDP)
         self.sock.setsockopt(usocket.SOL_SOCKET, usocket.SO_REUSEADDR, 1)
         self.sock.setblocking(False)
+        """
 
+        """
         # push the first time immediatelly
         self._push_data(self._make_stat_packet())
+        """
 
+        """
         # create the alarms
         self.stat_alarm = Timer.Alarm(handler=lambda t: self._push_data(self._make_stat_packet()), s=60, periodic=True)
         self.pull_alarm = Timer.Alarm(handler=lambda u: self._pull_data(), s=25, periodic=True)
@@ -155,6 +166,7 @@ class NanoGateway:
         # start the UDP receive thread
         self.udp_stop = False
         _thread.start_new_thread(self._udp_thread, ())
+        """
 
         # initialize the LoRa radio in LORA mode
         self._log('Setting up the LoRa radio at {} Mhz using {}', self._freq_to_float(self.frequency), self.datarate)
@@ -168,6 +180,7 @@ class NanoGateway:
             tx_iq=True
         )
 
+        """
         # create a raw LoRa socket
         self.lora_sock = usocket.socket(usocket.AF_LORA, usocket.SOCK_RAW)
         self.lora_sock.setblocking(False)
@@ -175,6 +188,7 @@ class NanoGateway:
 
         self.lora.callback(trigger=(LoRa.RX_PACKET_EVENT | LoRa.TX_PACKET_EVENT), handler=self._lora_cb)
         self._log('LoRaWAN nano gateway online')
+        """
 
     def stop(self):
         """
@@ -247,7 +261,8 @@ class NanoGateway:
             stats = lora.stats()
             packet = self._make_node_packet(rx_data, self.rtc.now(), stats.rx_timestamp, stats.sfrx, self.bw, stats.rssi, stats.snr)
             packet = self.frequency_rounding_fix(packet, self.frequency)
-            self._push_data(packet)     #PUSH DATA
+            #self._push_data(packet)     #PUSH DATA
+            self.send_down_link(packet) #, tmst, self.datarate, self.frequency)
             self._log('Received packet: {}', packet)
             self.rxfw += 1
         if events & LoRa.TX_PACKET_EVENT:
@@ -384,10 +399,11 @@ class NanoGateway:
             data
         )
 
+    """
     def _udp_thread(self):
-        """
-        UDP thread, reads data from the server and handles it.
-        """
+        
+        #UDP thread, reads data from the server and handles it.
+        
 
         while not self.udp_stop:
             try:
@@ -445,6 +461,7 @@ class NanoGateway:
         self.sock.close()
         self.udp_stop = False
         self._log('UDP thread stopped')
+    """
 
     def _log(self, message, *args):
         """
