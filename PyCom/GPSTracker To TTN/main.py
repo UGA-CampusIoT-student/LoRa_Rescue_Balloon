@@ -17,6 +17,22 @@ from network import LoRa
 pycom.heartbeat(False)
 pycom.rgbled(0xFF0000)
 
+from network import WLAN
+wlan = WLAN(mode=WLAN.STA)
+
+ssid = "edimax_2.4"
+wpaKey = "2106756871"
+
+nets = wlan.scan()
+for net in nets:
+    if net.ssid == ssid:
+        print('Network found! ',)
+        wlan.connect(net.ssid, auth=(net.sec, wpaKey), timeout=5000)
+        while not wlan.isconnected():
+            machine.idle() # save power while waiting
+        print('WLAN connection succeeded! ', wlan.ifconfig())
+        break
+
 time.sleep(2)
 gc.enable()
 
@@ -68,15 +84,17 @@ def encodeCoordinate(number):
     
     array = [None]*3 # Creating an array to store the bytes 
     
-    hex_0 = 0xff0000
-    hex_1 = 0x00ff00
-    hex_2 = 0x0000ff
-    
-    array[0] = int ((number & hex_0) >> 4 * 4)
-    array[1] = int ((number & hex_1) >> 4 * 2)
-    array[2] = int (number& hex_2)
-  
+    if number < 0 : # The if statement treats the case when the coordinate is negative 
+        number = -number
+        array[0] = (number>>16) & 0xff | 0b10000000 # we fill the first byte of the encoded message and the 24th bit is turned to 1 to signify a negative number 
+    else :
+        array[0] = (number>>16) & 0xff # filling byte 0
+
+    array[1] = (number>>8) & 0xff # filling byte 1
+    array[2] = number & 0xff # filling byte 2
+
     return bytes(array) # returning the coordinate in byte format, necessary for LoRa transmition 
+
 
 # Initialise LoRa in LORAWAN mode.
 # Please pick the region that matches where you are using the device:
@@ -84,22 +102,26 @@ def encodeCoordinate(number):
 # Australia = LoRa.AU915
 # Europe = LoRa.EU868
 # United States = LoRa.US915
-lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868, frequency=868100000) #forced frequency to 868.1 
+lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868)
 
 # create an OTAA authentication parameters
 app_eui = ubinascii.unhexlify('70B3D57ED0013933')
 app_key = ubinascii.unhexlify('5BBC57394313FC28C1056E73D974D87E')
 
+lora.add_channel(0, frequency=868100000, dr_min=0, dr_max=5)
+lora.add_channel(1, frequency=868100000, dr_min=0, dr_max=5)
+lora.add_channel(2, frequency=868100000, dr_min=0, dr_max=5)
+print('FREQUENCY SET!')
+
+
 # join a network using OTAA (Over the Air Activation)
 lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
-
 
 # wait until the module has joined the network
 while not lora.has_joined():
     time.sleep(2.5)
     print('Not yet joined...')
 pycom.rgbled(0xff8100)
-print("CONNECTED")
 
 # create a LoRa socket
 s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
@@ -110,27 +132,21 @@ s.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
 # make the socket blocking
 # (waits for the data to be sent and for the 2 receive windows to expire)
 s.setblocking(True)
-#lora.frequency(868100000)
 
 coord = l76.coordinates()
 latitude = coord[0]
 longitude = coord[1]
 
-s.send(bytes([0x01, 0x02, 0x03]))
-s.send(bytes([0x01, 0x02, 0x03]))
-s.send(bytes([0x01, 0x02, 0x03]))
-print("Sent bytes")
-
 
 while (longitude == None or latitude == None):
-    print("No GPS signal")
+    print("No signal")
     coord = l76.coordinates()
     latitude = coord[0]
     longitude = coord[1]
 
 # send some data
-
 s.send(encodeCoordinate(latitude))
+#
 s.send(encodeCoordinate(longitude))
 print("Coordinates sent!")
 pycom.rgbled(0x00FF00)
