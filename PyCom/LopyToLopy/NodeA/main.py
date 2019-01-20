@@ -15,9 +15,17 @@ lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868)
 s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setblocking(False)
 
+"""
 while True:
     if s.recv(64) == b'Ping':
         pycom.rgbled(0x00007f)
         s.send('Pong')
+    pycom.rgbled(0x00)
+    time.sleep(5)
+"""
+
+while True:
+    pycom.rgbled(0x00007f)
+    print(s.recv(64))
     pycom.rgbled(0x00)
     time.sleep(5)
