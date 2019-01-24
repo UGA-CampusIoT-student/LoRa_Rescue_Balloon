@@ -7,10 +7,10 @@ from network import WLAN
 
 pycom.heartbeat(False)
 
-"""
+
 wlan = WLAN(mode=WLAN.STA)
-ssid = "A8A"
-wpaKey = "gerrikos24"
+ssid = "SFR-87"
+wpaKey = "j44418OQ"
 
 nets = wlan.scan()
 for net in nets:
@@ -21,9 +21,9 @@ for net in nets:
             machine.idle() # save power while waiting
         print('WLAN connection succeeded! ', wlan.ifconfig())
         break
-"""
 
-lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868)
+
+lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868, frequency=868100000, sf=9) 
 s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setblocking(False)
 
