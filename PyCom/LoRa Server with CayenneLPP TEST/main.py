@@ -32,7 +32,7 @@ gc.enable()
 lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868)
 
 # create an OTAA authentication parameters
-app_eui = ubinascii.unhexlify('70B3D57ED0013933')
+app_eui = ubinascii.unhexlify('70B3D57ED0013933') #  70B3D5499BB14247
 app_key = ubinascii.unhexlify('684e24b97b6d13853a6f9eeb12160d1f') #LoRaServer Network Key
 
 # join a network using OTAA (Over the Air Activation)
@@ -65,6 +65,8 @@ while True:
     print("TEMP SENT!")
 
     time.sleep(30)
+
+
 """
 
 # make the socket blocking

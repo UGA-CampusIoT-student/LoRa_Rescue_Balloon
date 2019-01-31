@@ -20,8 +20,8 @@ pycom.rgbled(0xFF0000)
 from network import WLAN
 wlan = WLAN(mode=WLAN.STA)
 
-ssid = "edimax_2.4"
-wpaKey = "2106756871"
+ssid = "Eddy-Malou"
+wpaKey = "DRFM163CWXFE"
 
 nets = wlan.scan()
 for net in nets:

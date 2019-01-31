@@ -1,8 +1,8 @@
 from network import WLAN
 wlan = WLAN(mode=WLAN.STA)
 
-ssid = "SFR-87"
-wpaKey = "j44418OQ"
+ssid = "Eddy-Malou"
+wpaKey = "DRFM163CWXFE"
 
 nets = wlan.scan()
 for net in nets:
