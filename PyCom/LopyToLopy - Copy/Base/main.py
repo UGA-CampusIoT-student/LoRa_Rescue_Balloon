@@ -23,13 +23,14 @@ for net in nets:
         break
 """
 
-lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868)
+lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868, frequency=868100000, sf=9)
 s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setblocking(False)
 
 while True:
     pycom.rgbled(0x7f0000)
-    print(s.recv(64))
+    data = s.recv(64)
+    print(data)
     time.sleep(0.05)
     pycom.rgbled(0x00)
-    time.sleep(5)
+    time.sleep(1)

@@ -32,7 +32,7 @@ i=0
 while True:
     pycom.rgbled(0x7f0000)
     data = s.recv(64)
-    print(data)
+    #print(data)
     if data == b'Ping':
         sendStr = data + " Pong " + str(i)
         s.send(sendStr)
