@@ -39,9 +39,9 @@ print('Radio EUI=', binascii.hexlify(lora.mac()))
 # Device ID: 240AC400C0CE
 # LoRa MAC: 70B3D5499BDBEE28 (28EEDB9B49D5B370)
 
-dev_eui = binascii.unhexlify('70B3D5499BB14241')
-app_eui = binascii.unhexlify('ADA4DAE3AC12676B')
-app_key = binascii.unhexlify('B0B4D2D8C7FA38548B11B0282A189B75')
+dev_eui = binascii.unhexlify('70B3D5499BB14247')
+app_eui = binascii.unhexlify('817976f0d07cd25d999dc8dce626f0dd')
+app_key = binascii.unhexlify('684e24b97b6d13853a6f9eeb12160d1f')
 
 RED   = 0xff0000;
 GREEN = 0x00ff00;
@@ -106,7 +106,11 @@ while True:
         time.sleep(0.1)
         pycom.rgbled(OFF)
         time.sleep(9)
+        """
+        
         rx, port = s.recvfrom(256)
+
+
         if rx:
             print('Received: {}, on port: {} ({})'.format(rx, port, lora.stats()))
             pycom.rgbled(BLUE)
@@ -140,6 +144,8 @@ while True:
                 print('Select Unconfirmed')
                 pycom.rgbled(PINK)
                 s.setsockopt(socket.SOL_LORA, socket.SO_CONFIRMED, False)
+
+                """
 
         cpt = cpt + 1
         if cpt > 65535:
