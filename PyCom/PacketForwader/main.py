@@ -67,15 +67,15 @@ app_key = ubinascii.unhexlify('3BC098C3B2B0CE491F4851CAC4294F52') #LoRaServer Ne
 
 
 while True:
-    set_LoRa_RAW()
+    set_LoRa_RAW() #Setting up the device in LoRaRAW mode
 
-    data = s.recv(64)
-    while (data == b''):
+    data = s.recv(64) #Listening 
+    while (data == b''): #Waiting for data
         data = s.recv(64)
         print(data)
         time.sleep(10)
 
-    set_LoRa_WAN_ABP()
+    set_LoRa_WAN_ABP() #Setting up the device for LoRaWAN using ABP activation
     s.setblocking(True)
     blink()
     s.send(data)
