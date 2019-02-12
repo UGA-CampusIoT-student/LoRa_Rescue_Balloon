@@ -16,9 +16,9 @@ pycom.heartbeat(False)
 # United States = LoRa.US915
 
 # create an ABP authentication params
-dev_addr = struct.unpack(">l", ubinascii.unhexlify('01722b4e'))[0]
-nwk_swkey = ubinascii.unhexlify('7becb1a5d590aa874d4c748c100067e5')
-app_swkey = ubinascii.unhexlify('56142806713f62f9bc79d741f8e50a7b')
+dev_addr = struct.unpack(">l", ubinascii.unhexlify('26011605'))[0]
+nwk_swkey = ubinascii.unhexlify('445D4302B0E70C1ED8CC8F9D4FEF719C')
+app_swkey = ubinascii.unhexlify('4DBF9C276DD74910E69ACE4EE9D6258B')
 
 lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868)
 # join a network using ABP (Activation By Personalization)
@@ -50,4 +50,3 @@ while(True):
     print(data)
 
     time.sleep(1)
-
