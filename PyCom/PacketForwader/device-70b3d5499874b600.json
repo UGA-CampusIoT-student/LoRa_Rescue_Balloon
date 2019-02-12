@@ -1,0 +1,59 @@
+[
+    {
+        "type": "uplink",
+        "payload": {
+            "adr": false,
+            "applicationID": "52",
+            "applicationName": "LoRaRescueBallon_TEST",
+            "data": "UGluZw==",
+            "devEUI": "70b3d5499874b600",
+            "deviceName": "LoPy_70B3D5499874B600_ABP_1",
+            "fCnt": 0,
+            "fPort": 2,
+            "object": {
+                "PAYLOAD": "UGluZw=="
+            },
+            "rxInfo": [
+                {
+                    "gatewayID": "0000024b0806024e",
+                    "loRaSNR": 7.8,
+                    "location": {
+                        "altitude": 245,
+                        "latitude": 45.19046,
+                        "longitude": 5.7671
+                    },
+                    "name": "KER_106_IMAG",
+                    "rssi": -93,
+                    "time": "2019-02-12T22:36:45.837609Z"
+                },
+                {
+                    "gatewayID": "0000024b0805031a",
+                    "loRaSNR": 6,
+                    "location": {
+                        "altitude": 225,
+                        "latitude": 45.18432,
+                        "longitude": 5.75341
+                    },
+                    "name": "KER107_POLYTECH",
+                    "rssi": -108,
+                    "time": "2019-02-12T22:36:45.837608Z"
+                },
+                {
+                    "gatewayID": "0000024b08060211",
+                    "loRaSNR": 3,
+                    "location": {
+                        "altitude": 250,
+                        "latitude": 45.19387815352627,
+                        "longitude": 5.768014396831585
+                    },
+                    "name": "KER_109_IM2AG",
+                    "rssi": -110
+                }
+            ],
+            "txInfo": {
+                "dr": 5,
+                "frequency": 868500000
+            }
+        }
+    }
+]

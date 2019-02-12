@@ -23,7 +23,7 @@ for net in nets:
         break
 """
 
-lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868, frequency=868100000, sf=9) 
+lora = LoRa(mode=LoRa.LORA, region=LoRa.EU868, frequency=868100000, sf=7) 
 s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setblocking(False)
 

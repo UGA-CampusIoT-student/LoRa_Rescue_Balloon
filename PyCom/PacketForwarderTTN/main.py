@@ -7,6 +7,7 @@ import pycom
 import machine
 from network import WLAN
 
+# FOR : LoPy_1
 
 # FUNTIONS
 def setup_WiFi():
@@ -51,22 +52,23 @@ def set_LoRa_WAN_OTAA():
 pycom.heartbeat(False)
 setup_WiFi()
 i=0
-
 # create ABP authentication params
-dev_addr = struct.unpack(">l", ubinascii.unhexlify('012b4e65'))[0]
-nwk_swkey = ubinascii.unhexlify('04e82395e2d48184420f33914b8a1b6d')
-app_swkey = ubinascii.unhexlify('87adcd5a6f993cf0fdc8c6e8bc3d0347')
+"""
+dev_addr = struct.unpack(">l", ubinascii.unhexlify('01e34d9b'))[0]
+nwk_swkey = ubinascii.unhexlify('aa731d1f1e080acd940efee9e4260368')
+app_swkey = ubinascii.unhexlify('69e2c0b276f9e4529cc637e075227ffc')
 
 """
 dev_addr = struct.unpack(">l", ubinascii.unhexlify('26011CAE'))[0]
 nwk_swkey = ubinascii.unhexlify('F27AC96F79930C27726B7E7EFF5C3A50')
 app_swkey = ubinascii.unhexlify('4A3D58478336A90A32B918E65C541772')
-"""
+
 app_eui = ubinascii.unhexlify('70B3D57ED0013933') #  70B3D5499BB14247
 app_key = ubinascii.unhexlify('3BC098C3B2B0CE491F4851CAC4294F52') #LoRaServer Network Key
 
-
 while True:
+    #data = bytes([0x01, 0x02, 0x03])
+
     set_LoRa_RAW()
 
     data = s.recv(64)
@@ -81,7 +83,5 @@ while True:
     s.send(data)
     s.setblocking(False)
     print(i, "sent", data)
-    
     time.sleep(10)
     i += 1
-    
