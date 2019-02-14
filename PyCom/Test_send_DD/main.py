@@ -38,21 +38,21 @@ print('Radio EUI=', binascii.hexlify(lora.mac()))
 
 # Device ID: 240AC400C0CE
 # LoRa MAC: 70B3D5499BDBEE28 (28EEDB9B49D5B370)
-'''
+
 # Pour le PyCom #3 
 
 dev_eui = binascii.unhexlify('70B3D5499BB14247')
 app_eui = binascii.unhexlify('817976f0d07cd25d999dc8dce626f0dd')
 app_key = binascii.unhexlify('684e24b97b6d13853a6f9eeb12160d1f')
 
-'''
+
 
 # Pour le PyCom 2
-
+'''
 dev_eui =binascii.unhexlify('70B3D5499F6B6AA0')
 app_key = binascii.unhexlify('51b92f965bdd016181b60cd76af2fd77')
 app_eui = binascii.unhexlify('817976f0d07cd25d999dc8dce626f0dd')
-
+'''
 
 
 
@@ -65,6 +65,7 @@ PINK = 0xFF69B4;
 OFF   = 0x000000;
 
 DATARATE = 0
+
 
 while True:
     # join a network using OTAA (Over the Air Activation)
